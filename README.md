@@ -7,12 +7,11 @@ The purpose of this project is to backup files from remote servers without putti
 - Remote server creates a backup with whatever solution you prefer
 - Remote server sends an HTTP request to the backup server
 - Backup server validates the request and puts it in a [beanstalkd](http://kr.github.io/beanstalkd) queue
-
 - Backup server listens on the queue
 - Backup server logs in to the remote server
 - Backup server copies over the file and deletes it on success
 
-The 2nd part is not yet implemented, but shouldn't be too hard. Camel and a small processor should be enough for the job.
+Steps 4-6 are not yet implemented, but shouldn't be too hard. Camel and a small processor should be enough for the job.
 
 ## Prerequisites
 
