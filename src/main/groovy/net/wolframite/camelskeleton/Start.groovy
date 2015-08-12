@@ -10,8 +10,8 @@ import groovy.util.ConfigObject
  */
 class Start {
 
-	public static final String LOGGER_CONFIG_PATH = '.camelskeleton/logger.groovy'
-	public static final String MAIN_CONFIG_PATH = '.camelskeleton/camelskeleton.groovy'
+	public static final String LOGGER_CONFIG_PATH = '.camelup/logger.groovy'
+	public static final String MAIN_CONFIG_PATH = '.camelup/camelskeleton.groovy'
 
 	static main(args) {
 		initLogger()
