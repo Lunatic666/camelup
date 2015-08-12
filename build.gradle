@@ -46,12 +46,18 @@ run {
 
 task fatJar(type: Jar) {
 	manifest {
-		attributes 'Application-Name': 'Camelup',
+		attributes 'Application-Name': 'CamelUp',
 			'Main-Class': 'net.wolframite.camelskeleton.Start',
 			'Created-By': 'Wolfram Huesken <woh@wolframite.net>'
 	}
 
 	baseName = project.name
-	from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+
+	doFirst {
+		from {
+			configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+		}
+		// exclude 'META-INF/*.DSA', 'META-INF/*.SF', 'META-INF/*.RSA'
+	}
 	with jar
 }
