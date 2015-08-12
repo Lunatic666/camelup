@@ -12,11 +12,11 @@ route.WebEndpoint.names.to = "Logger"
 route.WebEndpoint.names.WebEndpointProcessor = "WebEndpointProcessor"
 
 route.Pickup.from = "beanstalk://localhost:11300/backup"
-route.Pickup.sftp = "sftp://camelup@%s/backup?" +
-	"fileName=%s&localWorkDirectory=" + System.getProperty("user.home") + "/Downloads&" +
+route.Pickup.sftp = "sftp://camelup@%s/backup?fileName=%s&" +
 	"knownHostsFile=/Users/whuesken/.ssh/known_hosts&" +
+	"delete=true&" +
+	"streamDownload=true&" +
 	"preferredAuthentications=publickey&" +
-	"privateKeyFile=/Users/whuesken/Copy/weg/BackupKeys/backup&" +
-	"maximumReconnectAttempts=2&" +
-	"reconnectDelay=5000&" +
-	"disconnect=true"
+	"privateKeyFile=/Users/whuesken/Copy/weg/BackupKeys/backup"
+
+route.Pickup.to = "file:" + System.getProperty("user.home") + '/Downloads'
