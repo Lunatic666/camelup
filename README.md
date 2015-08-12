@@ -11,8 +11,6 @@ The purpose of this project is to backup files from remote servers without putti
 - Backup server logs in to the remote server
 - Backup server copies over the file and deletes it on success
 
-Steps 4-6 are not yet implemented, but shouldn't be too hard. Camel and a small processor should be enough for the job.
-
 ## Prerequisites
 
 - Java 1.7+
