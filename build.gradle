@@ -7,14 +7,7 @@ mainClassName = "net.wolframite.camelskeleton.Start"
 sourceSets {
 	main {
 		groovy    { srcDir 'src/main/groovy' }
-		java      { srcDir 'src/main/java' }
 		resources { srcDir 'src/main/resources' }
-	}
-
-	test {
-		groovy    { srcDir 'src/test/groovy' }
-		java      { srcDir 'src/test/java' }
-		resources { srcDir 'src/test/resources' }
 	}
 }
 
@@ -32,6 +25,7 @@ dependencies {
 	compile 'org.apache.httpcomponents:httpmime:4.5'
 	
 	compile 'org.apache.camel:camel-jmx:2.15.2'
+	compile 'org.apache.camel:camel-ftp:2.15.2'
 	compile 'org.apache.camel:camel-core:2.15.2'
 	compile 'org.apache.camel:camel-test:2.15.2'
 	compile 'org.apache.camel:camel-jdbc:2.15.2'
