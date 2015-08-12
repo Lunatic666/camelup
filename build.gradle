@@ -23,7 +23,7 @@ dependencies {
 	compile 'org.slf4j:slf4j-log4j12:1.7.10'
 	compile 'commons-codec:commons-codec:1.10'
 	compile 'org.apache.httpcomponents:httpmime:4.5'
-	
+
 	compile 'org.apache.camel:camel-jmx:2.15.2'
 	compile 'org.apache.camel:camel-ftp:2.15.2'
 	compile 'org.apache.camel:camel-core:2.15.2'
@@ -36,10 +36,22 @@ dependencies {
 	compile 'org.apache.camel:camel-jackson:2.15.2'
 	compile 'org.apache.camel:camel-beanstalk:2.15.2'
 	compile 'org.apache.camel:camel-netty4-http:2.15.2'
-	
-	compile 'org.codehaus.groovy:groovy-all:2.4.3'
+
+	compile 'org.codehaus.groovy:groovy-all:2.4.4'
 }
 
 run {
 	systemProperties = System.getProperties()
+}
+
+task fatJar(type: Jar) {
+	manifest {
+		attributes 'Application-Name': 'Camelup',
+			'Main-Class': 'net.wolframite.camelskeleton.Start',
+			'Created-By': 'Wolfram Huesken <woh@wolframite.net>'
+	}
+
+	baseName = project.name
+	from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+	with jar
 }
