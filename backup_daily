@@ -1,0 +1,26 @@
+#!/bin/sh
+
+DATE=`date "+%Y-%m-%d_"`
+SERVER=`hostname`
+BACKUP_FOLDER=/home/camelup/backup
+FILE_CONFIG=$DATE`hostname -s`_etc.tar.gz
+FILE_DB=$DATE`hostname -s`_mysql-all.sql.gz
+
+# Backup config folder
+cd /
+tar czf $BACKUP_FOLDER/$FILE_CONFIG etc
+chown camelup. $BACKUP_FOLDER/$FILE_CONFIG
+http POST http://glong.m18.org file=$FILE_CONFIG type=config server=$SERVER
+
+# Backup databases
+DBLIST=""
+SQL="SELECT schema_name FROM information_schema.schemata WHERE schema_name NOT IN"
+SQL="${SQL} ('mysql','information_schema','performance_schema', 'test')"
+DBLISTRAW=`mysql -ANe"${SQL}"`
+for DB in $DBLISTRAW ; do DBLIST="${DBLIST} ${DB}" ; done
+
+mysqldump --databases $DBLIST | gzip > $BACKUP_FOLDER/$FILE_DB
+chown camelup. $BACKUP_FOLDER/$FILE_DB
+http POST http://glong.m18.org file=$FILE_DB type=db server=$SERVER
+
+exit 0

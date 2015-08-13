@@ -1,0 +1,35 @@
+#!/bin/sh
+
+DATE=`date "+%Y-%m-%d_"`
+SERVER=`hostname`
+BACKUP_FOLDER=/home/camelup/backup
+WEB_FOLDER=/var/www
+MAIL_FOLDER=/var/vmail/vmail1
+FILE_WWW=""
+FILE_MAIL=""
+
+# Backup web stuff
+cd /var/www
+DIRS=`ls -l --time-style="long-iso" $WEB_FOLDER | egrep '^d' | awk '{print $8}'`
+
+for DIR in $DIRS
+do
+FILE_WWW=$DATE`hostname -s`_www-${DIR}.tar.gz
+tar czf $BACKUP_FOLDER/$FILE_WWW ${DIR}
+chown camelup. $BACKUP_FOLDER/$FILE_WWW
+http POST http://glong.m18.org file=$FILE_WWW type=web server=$SERVER
+done
+
+# Backup mails
+cd /var/vmail/vmail1
+DIRS=`ls -l --time-style="long-iso" $MAIL_FOLDER | egrep '^d' | awk '{print $8}'`
+
+for DIR in $DIRS
+do
+FILE_MAIL=$DATE`hostname -s`_mail-${DIR}.tar.gz
+tar czf $BACKUP_FOLDER/$FILE_MAIL ${DIR}
+chown camelup. $BACKUP_FOLDER/$FILE_MAIL
+http POST http://glong.m18.org file=$FILE_MAIL type=mail server=$SERVER
+done
+
+exit 0
