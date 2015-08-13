@@ -34,15 +34,20 @@ class PickupProcessor implements Processor {
 	public void process(Exchange exchange) throws Exception {
 		def pickupMap = jsonSlurper.parse(exchange.getIn().getBody())
 		def consumerExchange
+
 		def endPointURI = String.format(config.route.Pickup.sftp,
 			pickupMap['server'], pickupMap['file']
+		)
+
+		def producerURI = String.format(config.route.Pickup.to,
+			pickupMap['server'], pickupMap['type']
 		)
 
 		csTpl.start()
 		prodTpl.start()
 
 		consumerExchange = csTpl.receive(endPointURI)
-		prodTpl.send(config.route.Pickup.to, consumerExchange)
+		prodTpl.send(producerURI, consumerExchange)
 
 		prodTpl.stop()
 		csTpl.doneUoW(consumerExchange)
