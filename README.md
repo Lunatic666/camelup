@@ -22,3 +22,18 @@ The bootstrap code is taken from the [CamelSkeleton](https://github.com/Lunatic6
 - `git clone git@github.com:Lunatic666/camelup.git`
 - Edit the configuration file (src/main/resources/conf/camelskeleton.groovy)
 - `./gradlew run`
+
+There's an automatic override for the config file, just put it in $HOME/.camelskeleton, then you don't have to recompile after making changes.
+
+## Backup Scripts
+
+The whole project is more fun when something is sending messages to the server, that's why I added a draft for some backup scripts, they're in the root of the project: 
+
+- backup_weekly
+- backup_daily
+
+I'm not really into bash scripting, but it kind of works...
+
+## Full Setup Guide
+
+Coming soon...
