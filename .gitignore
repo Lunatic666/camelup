@@ -1,7 +1,9 @@
-# Eclipse stuff
+# IDE stuff
 .classpath
 .project
 .settings
+*.iml
+.idea
 
 # Gradle stuff
 .gradle
