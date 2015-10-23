@@ -2,6 +2,7 @@
 
 DATE=`date "+%Y-%m-%d_"`
 SERVER=`hostname`
+CAMELUP_SERVER=http://yourserver.com/camelup
 BACKUP_FOLDER=/home/camelup/backup
 WEB_FOLDER=/var/www
 MAIL_FOLDER=/var/vmail/vmail1
@@ -14,10 +15,10 @@ DIRS=`ls -l --time-style="long-iso" $WEB_FOLDER | egrep '^d' | awk '{print $8}'`
 
 for DIR in $DIRS
 do
-FILE_WWW=$DATE`hostname -s`_www-${DIR}.tar.gz
-tar czf $BACKUP_FOLDER/$FILE_WWW ${DIR}
-chown camelup. $BACKUP_FOLDER/$FILE_WWW
-http POST http://glong.m18.org file=$FILE_WWW type=web server=$SERVER
+    FILE_WWW=$DATE`hostname -s`_www-${DIR}.tar.gz
+    tar czf $BACKUP_FOLDER/$FILE_WWW ${DIR}
+    chown camelup. $BACKUP_FOLDER/$FILE_WWW
+    curl -X POST -d "{ \"file\": \"$FILE_WWW\", \"type\": \"mail\", \"server\": \"$SERVER\" }" $CAMELUP_SERVER --header "Content-Type: application/json"
 done
 
 # Backup mails
@@ -26,10 +27,10 @@ DIRS=`ls -l --time-style="long-iso" $MAIL_FOLDER | egrep '^d' | awk '{print $8}'
 
 for DIR in $DIRS
 do
-FILE_MAIL=$DATE`hostname -s`_mail-${DIR}.tar.gz
-tar czf $BACKUP_FOLDER/$FILE_MAIL ${DIR}
-chown camelup. $BACKUP_FOLDER/$FILE_MAIL
-http POST http://glong.m18.org file=$FILE_MAIL type=mail server=$SERVER
+    FILE_MAIL=$DATE`hostname -s`_mail-${DIR}.tar.gz
+    tar czf $BACKUP_FOLDER/$FILE_MAIL ${DIR}
+    chown camelup. $BACKUP_FOLDER/$FILE_MAIL
+    curl -X POST -d "{ \"file\": \"$FILE_MAIL\", \"type\": \"mail\", \"server\": \"$SERVER\" }" $CAMELUP_SERVER --header "Content-Type: application/json"
 done
 
 exit 0

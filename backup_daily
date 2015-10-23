@@ -5,12 +5,13 @@ SERVER=`hostname`
 BACKUP_FOLDER=/home/camelup/backup
 FILE_CONFIG=$DATE`hostname -s`_etc.tar.gz
 FILE_DB=$DATE`hostname -s`_mysql-all.sql.gz
+CAMELUP_SERVER=http://yourserver.com/camelup
 
 # Backup config folder
 cd /
 tar czf $BACKUP_FOLDER/$FILE_CONFIG etc
 chown camelup. $BACKUP_FOLDER/$FILE_CONFIG
-http POST http://glong.m18.org file=$FILE_CONFIG type=config server=$SERVER
+curl -X POST -d "{ \"file\": \"$FILE_CONFIG\", \"type\": \"config\", \"server\": \"$SERVER\" }" $CAMELUP_SERVER --header "Content-Type: application/json"
 
 # Backup databases
 DBLIST=""
@@ -21,6 +22,6 @@ for DB in $DBLISTRAW ; do DBLIST="${DBLIST} ${DB}" ; done
 
 mysqldump --databases $DBLIST | gzip > $BACKUP_FOLDER/$FILE_DB
 chown camelup. $BACKUP_FOLDER/$FILE_DB
-http POST http://glong.m18.org file=$FILE_DB type=db server=$SERVER
+curl -X POST -d "{ \"file\": \"$FILE_DB\", \"type\": \"db\", \"server\": \"$SERVER\" }" $CAMELUP_SERVER --header "Content-Type: application/json"
 
 exit 0
