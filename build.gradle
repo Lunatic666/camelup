@@ -37,7 +37,7 @@ dependencies {
 	compile 'org.apache.camel:camel-spring:2.16.0'
 	compile 'org.apache.camel:camel-stream:2.16.0'
 	compile 'org.apache.camel:camel-jackson:2.16.0'
-	compile 'org.apache.camel:camel-beanstalk:2.16.0'
+	compile 'org.apache.camel:camel-rabbitmq:2.16.0'
 	compile 'org.apache.camel:camel-netty4-http:2.16.0'
 
 	compile 'org.codehaus.groovy:groovy-all:2.4.5'

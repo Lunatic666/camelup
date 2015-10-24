@@ -18,6 +18,6 @@ class Pickup extends ConfigRouteBuilder {
 
 	@Override
 	public void configure() {
-		from("beanstalk:backup").process(pickupProcessor)
+		from(config.route.Pickup.from).process(pickupProcessor)
 	}
 }
