@@ -10,7 +10,7 @@ route.WebEndpoint.to = "rabbitmq://localhost/backup?username=guest&password=gues
 	"autoAck=false&" +
 	"autoDelete=true&" +
 	"durable=false&" +
-	""
+	"requestTimeout=7200000"
 
 route.WebEndpoint.names.to = "Logger"
 route.WebEndpoint.names.WebEndpointProcessor = "WebEndpointProcessor"
@@ -18,7 +18,8 @@ route.WebEndpoint.names.WebEndpointProcessor = "WebEndpointProcessor"
 route.Pickup.from = "rabbitmq://localhost/backup?username=guest&password=guest&" +
 	"autoAck=false&" +
 	"autoDelete=true&" +
-	"durable=false"
+	"durable=false" +
+	"requestTimeout=7200000"
 
 route.Pickup.sftp = "sftp://camelup@%s/backup?fileName=%s&" +
 	"knownHostsFile=/Users/whuesken/.ssh/known_hosts&" +
